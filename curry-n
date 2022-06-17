@@ -1,0 +1,17 @@
+#lang sicp
+
+(define (curry f num_args)
+  (lambda args
+    (define arg-count (length args))
+    (cond
+      ((= arg-count num_args) (apply f args))
+      ((< arg-count num_args) (curry (lambda args*
+                         (apply f (append args args*))) (- num_args arg-count)))
+      (else (error "Arity error")))))
+
+(define (foo x)
+  (display x))
+
+
+
+(curry + 3)1 2 3
