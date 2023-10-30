@@ -19,6 +19,17 @@
       guess
       (old-sqrt-iter (improve guess x) x)))
 
+;; Examples of hitting the precision issue
+;; 
+;; The one below won't terminate
+;; (old-sqrt-iter 1.0 12345678901231)
+;; The one below will
+(old-sqrt-iter 1.0 12345678901232)
+;; Must be 0.03, but I get 0.0403... on my machine
+(old-sqrt-iter 1.0 0.0009)
+
+
+;; Let's exploit the machine's precision then
 (define (new-good-enough? guess x)
   (= guess (improve guess x)))
 
