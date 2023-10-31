@@ -30,5 +30,30 @@
       guess
       (cubert-iter (improve-cubert guess x) x)))
 
-(sqrt-iter 1.0 81)
-(cubert-iter 1.0 27)
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+
+(define (cubert x)
+  (cubert-iter 1.0 x))
+
+(sqrt 81)
+(cubert 27)
+
+;; Now, let's factor out the common patterns into a separate mechanism
+
+(define (good-enough? guess x improver-function)
+  (= guess (improver-function guess x)))
+
+(define (iter guess x improver-function)
+  (if (good-enough? guess x improver-function)
+      guess
+      (iter (improver-function guess x) x improver-function)))
+
+(define (new-sqrt x)
+  (iter 1.0 x improve-sqrt))
+
+(define (new-cubert x)
+  (iter 1.0 x improve-cubert))
+
+(new-sqrt 81)
+(new-cubert 27)
