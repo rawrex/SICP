@@ -7,4 +7,21 @@
          (* 2 (f-recursive (- n 2)))
          (* 3 (f-recursive (- n 3))))))
 
-(f-recursive 6)
+(define (f-iter n)
+  (define (iter a b c counter)
+    (if (= counter 0)
+        c
+        (iter (+ a (* 2 b) (* 3 c)) a b (- counter 1))))
+  (iter 2 1 0 n))
+
+(display "Recursive:\n")
+(f-recursive 1)
+(f-recursive 2)
+(f-recursive 3)
+(f-recursive 4)
+(newline)
+(display "Iterative:\n")
+(f-iter 1)
+(f-iter 2)
+(f-iter 3)
+(f-iter 4)
