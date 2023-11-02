@@ -9,10 +9,10 @@
 
 (define (f-iter n)
   (define (iter a b c counter)
-    (if (= counter 0)
+    (if (= counter n)
         c
-        (iter (+ a (* 2 b) (* 3 c)) a b (- counter 1))))
-  (iter 2 1 0 n))
+        (iter (+ a (* 2 b) (* 3 c)) a b (inc counter))))
+  (iter 2 1 0 0))
 
 (display "Recursive:\n")
 (f-recursive 1)
