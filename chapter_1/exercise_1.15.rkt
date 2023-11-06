@@ -19,3 +19,6 @@
 
 (display "Test: ")
 (= (p (p (p (p (p 0.05)))))  (sine 12.15))
+
+; The p will be applied on each complete power of three in the angle
+; Thus, the sine has O(log(n)) time complexity
