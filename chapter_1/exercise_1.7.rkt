@@ -39,3 +39,5 @@
       (sqrt-iter (improve guess x) x)))
 
 (sqrt-iter 1.0 81)
+(sqrt-iter 1.0 12345678901231)
+(sqrt-iter 1.0 0.0009)
