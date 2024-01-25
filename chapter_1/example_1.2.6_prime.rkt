@@ -16,4 +16,6 @@
 
 (define (divides? divisor number)
   (= (remainder number divisor) 0))
-        
+
+(define (prime? n)
+  (= (smallest-divisor n) n))
