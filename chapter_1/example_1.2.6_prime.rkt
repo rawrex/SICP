@@ -4,9 +4,12 @@
 
 (define (find-divisor n test-divisor)
   (cond
-    ;; if we take test-divisor test-divisor times,
+    ;; If we take test-divisor test-divisor times,
     ;; then, if we are going in ascending order,
-    ;; test-divisor should already been shown to be a divisor of n
+    ;; test-divisor should already been shown to be a divisor of n.
+    ;; 
+    ;; In other words, if d is a divisor of n, then so is the n/d
+    ;; But d and the n/d cannot both be greater than the sqrt(n)
     ((> (square test-divisor) n) n)
     ((divides? test-divisor n) test-divisor)
     (else (find-divisor n (inc test-divisor)))))
