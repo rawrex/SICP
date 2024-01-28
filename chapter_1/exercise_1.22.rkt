@@ -36,3 +36,22 @@
   (fast-prime? n 3))
 
 
+(define (timed-prime-test n test-function)
+  (define (report-prime result elapsed-time)
+    (display "\nresult: ")
+    (display result)
+    (display "\ntime: ")
+    (display elapsed-time)
+    (newline))
+  (define (start-prime-test n start-time)
+    (if (test-function n)
+        (report-prime "prime" (- (runtime) start-time))
+        (report-prime "not prime" (- (runtime) start-time))))
+  (newline)
+  (display n)
+  (start-prime-test n (runtime)))
+
+(timed-prime-test 19999 prime-a?)
+(timed-prime-test 19999 prime-b?)
+(timed-prime-test 12419731 prime-a?)
+(timed-prime-test 12419731 prime-b?)
