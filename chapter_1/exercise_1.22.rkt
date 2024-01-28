@@ -39,30 +39,38 @@
 ;; The Profiling function
 
 (define (timed-prime-test n test-function)
-  (define (report-prime result elapsed-time)
-    (display "\n\nnumber: ")
-    (display n)
-    (display "\nresult: ")
-    (display result)
-    (display "\ntime: ")
-    (display elapsed-time)
-    (newline))
+  (define (report result elapsed-time)
+    (cond (result
+           (display "\n\nnumber: ")
+           (display n)
+           (display "\ntime: ")
+           (display elapsed-time)
+           (newline)))
+          ;; we do not report non-prime
+    result)
   (define (start-prime-test n start-time)
     (if (test-function n)
-        (report-prime "prime" (- (runtime) start-time))
-        ;; Do not report non-primes
-        ;(report-prime "not prime" (- (runtime) start-time))))
-        ))
+        (report #t (- (runtime) start-time))
+        (report #f (- (runtime) start-time))))
   (start-prime-test n (runtime)))
 
 
 ;; Range test
 
-(define (search-for-primes begin end)
+(define (find-primes begin end)
   (cond ((and (< begin end) (even? begin))
          (search-for-primes (inc begin) end))
         ((< begin end)
          (timed-prime-test begin prime-b?)
          (search-for-primes (+ 2 begin) end))))
 
-(search-for-primes 1000 1100)
+
+;; Find specified number of primes starting from...
+
+(define (find-n-primes from n)
+  (cond ((even? from) (find-n-primes (inc from) n))
+        ((and (> n 0) (timed-prime-test from prime-b?)) (find-n-primes (+ from 2) (dec n)))
+        ((> n 0) (find-n-primes (inc from) n))))
+
+(find-n-primes 1000000 1)
+(find-n-primes 100000000 1)
