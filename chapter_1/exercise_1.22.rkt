@@ -36,8 +36,12 @@
   (fast-prime? n 3))
 
 
+;; The Profiling function
+
 (define (timed-prime-test n test-function)
   (define (report-prime result elapsed-time)
+    (display "\n\nnumber: ")
+    (display n)
     (display "\nresult: ")
     (display result)
     (display "\ntime: ")
@@ -46,12 +50,19 @@
   (define (start-prime-test n start-time)
     (if (test-function n)
         (report-prime "prime" (- (runtime) start-time))
-        (report-prime "not prime" (- (runtime) start-time))))
-  (newline)
-  (display n)
+        ;; Do not report non-primes
+        ;(report-prime "not prime" (- (runtime) start-time))))
+        ))
   (start-prime-test n (runtime)))
 
-(timed-prime-test 19999 prime-a?)
-(timed-prime-test 19999 prime-b?)
-(timed-prime-test 12419731 prime-a?)
-(timed-prime-test 12419731 prime-b?)
+
+;; Range test
+
+(define (search-for-primes begin end)
+  (cond ((and (< begin end) (even? begin))
+         (search-for-primes (inc begin) end))
+        ((< begin end)
+         (timed-prime-test begin prime-b?)
+         (search-for-primes (+ 2 begin) end))))
+
+(search-for-primes 1000 1100)
