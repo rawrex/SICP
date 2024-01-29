@@ -72,12 +72,12 @@
         ((and (> n 0) (timed-prime-test from test-function)) (find-n-primes (+ from 2) (dec n) test-function))
         ((> n 0) (find-n-primes (inc from) n test-function))))
 
-(display "GCD test:")
-(find-n-primes 100000 3 prime-a?)     ; average time: 50 
-(find-n-primes 1000000 3 prime-a?)    ; average time: 150 
-(find-n-primes 10000000 3 prime-a?)   ; average time: 385 
-
-(display "\n* * *\nFermat test:")
-(find-n-primes 10000000 3 prime-b?)   ; average time: 20 
-(find-n-primes 100000000 3 prime-b?)  ; average time: 23 
-(find-n-primes 1000000000 3 prime-b?) ; average time: 25 
+(define (run-tests)
+  (display "GCD test:")
+  (find-n-primes 100000 3 prime-a?)     ; average time: 50 
+  (find-n-primes 1000000 3 prime-a?)    ; average time: 150 
+  (find-n-primes 10000000 3 prime-a?)   ; average time: 385 
+  (display "\n* * *\nFermat test:")
+  (find-n-primes 10000000 3 prime-b?)   ; average time: 20 
+  (find-n-primes 100000000 3 prime-b?)  ; average time: 23 
+  (find-n-primes 1000000000 3 prime-b?)); average time: 25 
