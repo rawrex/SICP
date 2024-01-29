@@ -50,7 +50,6 @@
     result)
   (define (start-prime-test n start-time)
     (if (test-function n)
-        (report #t (- (runtime) start-time))
         (report #f (- (runtime) start-time))))
   (start-prime-test n (runtime)))
 
@@ -59,10 +58,10 @@
 
 (define (find-primes begin end)
   (cond ((and (< begin end) (even? begin))
-         (search-for-primes (inc begin) end))
+         (find-primes (inc begin) end))
         ((< begin end)
          (timed-prime-test begin prime-b?)
-         (search-for-primes (+ 2 begin) end))))
+         (find-primes (+ 2 begin) end))))
 
 
 ;; Find specified number of primes starting from...
@@ -72,5 +71,12 @@
         ((and (> n 0) (timed-prime-test from prime-b?)) (find-n-primes (+ from 2) (dec n)))
         ((> n 0) (find-n-primes (inc from) n))))
 
-(find-n-primes 1000000 1)
-(find-n-primes 100000000 1)
+(find-n-primes 19 1)
+(find-n-primes 199 1)
+(find-n-primes 1999 1)
+(find-n-primes 19999 1)
+(find-n-primes 199999 1)
+(find-n-primes 1999999 1)
+(find-n-primes 19999999 1)
+(find-n-primes 199999999 1)
+(find-n-primes 1999999999 1)
