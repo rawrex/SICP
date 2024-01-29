@@ -50,6 +50,7 @@
     result)
   (define (start-prime-test n start-time)
     (if (test-function n)
+        (report #t (- (runtime) start-time))
         (report #f (- (runtime) start-time))))
   (start-prime-test n (runtime)))
 
