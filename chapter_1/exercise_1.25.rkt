@@ -59,5 +59,10 @@
         ((and (> n 0) (timed-prime-test from test-function)) (find-n-primes (+ from 2) (dec n) test-function))
         ((> n 0) (find-n-primes (inc from) n test-function))))
 
+;; Here, intermediate computations are done on regular "computer" numbers
+;; probably always on registers in CPU
 (find-n-primes 10000 2 old)
+
+;; Here, the intermediate numbers in exponent computations are so big
+;; that cannot be represented in CPU directly, and the computations must be made at a more abstract layer
 (find-n-primes 10000 2 new)
