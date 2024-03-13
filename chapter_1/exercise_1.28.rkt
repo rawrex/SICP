@@ -33,3 +33,7 @@
   
 (define (square x)
   (* x x))
+
+;; Test
+(define smallest-carmichael-number 561)
+(prime? smallest-carmichael-number)
