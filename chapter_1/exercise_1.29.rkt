@@ -14,13 +14,14 @@
 (define accuracy 3)
 
 (define (new-integral f a b n)
+
   (define (h a b n)
     (/ (- b a) n))
+
   (define (y_k k)
     (f (+ a (* k (h a b n)))))
-  (define (foo k)
-    (* (sum f a (y_k (inc k)) b)
-       (/ (h a b n) 3.0)))
-  (foo 0.0))
+
+  (* (sum f (y_k (inc a)) y_k b)
+     (/ (h a b n) 3.0)))
 
 (new-integral inc 0 10 accuracy)
