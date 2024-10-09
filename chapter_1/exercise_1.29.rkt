@@ -11,17 +11,23 @@
   (* (sum f (+ a (/ dx 2.0)) add-dx b)
      dx))
 
-(define accuracy 3)
+(define (self x ) x)
 
 (define (new-integral f a b n)
-
-  (define (h a b n)
-    (/ (- b a) n))
-
+  (define h (/ (- b a) n))
   (define (y_k k)
-    (f (+ a (* k (h a b n)))))
+    (f (+ a (* k h))))
+  (* (/ h 3.0)
+     (+
+        (y_k 0)
+        (* 4 (sum self (y_k (dec n)) ...))
+        (* 2 (sum self (y_k (dec n)) ...))
+        (y_k n))))
 
-  (* (sum f (y_k (inc a)) y_k b)
-     (/ (h a b n) 3.0)))
 
-(new-integral inc 0 10 accuracy)
+(define (cube x)
+  (* x x x))
+
+(define accuracy 10)
+
+(new-integral cube 1 10 accuracy)
