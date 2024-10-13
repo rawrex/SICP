@@ -1,34 +1,5 @@
 #lang sicp
 
-;; Previous definitions
-
-(define (sum term a next b)
-  (if (> a b)
-      0.0
-      (+ (term a) (sum term (next a) next b))))
-
-(define (sum-iter term a next b)
-  (define (iter a result)
-    (if (> a b)
-      result
-      (iter (next a) (+ result (term a)))))
-  (iter a 0.0))
-
-(define (mul term a b next)
-  (if (> a b)
-    1.0
-    (* (term a) (mul term (next a) b next))))
-
-(define (mul-iter term a b next)
-  (define (iter a result)
-    (if (> a b)
-      result
-      (iter (next a) (* result (term a)))))
-  (iter a 1.0))
-
-
-;; Accumulate
-
 (define (make-accumulate combination initial)
   (define (accumulate term start end next)
     (if (> start end)
@@ -38,8 +9,22 @@
                  (accumulate term (next start) end next))))
   accumulate)
 
+(define (make-accumulate-iter combination initial)
+  (define (accumulate term start end next)
+    (define (iter start result)
+      (if (> start end)
+        result
+        (iter (next start) (combination result (term start)))))
+    (iter start initial))
+    accumulate)
+
 (define new-sum (make-accumulate + 0.0))
 (define new-mul (make-accumulate * 1.0))
+(define new-sum-iter (make-accumulate-iter + 0.0))
+(define new-mul-iter (make-accumulate-iter * 1.0))
 
-(new-sum (lambda (x) (* x x)) 2 5 inc)
-(new-mul (lambda (x) (x)) 2 5 inc)
+;; Tests
+(new-sum (lambda (x) x) 2 4 inc)
+(new-mul (lambda (x) x) 2 4 inc)
+(new-sum-iter (lambda (x) x) 2 4 inc)
+(new-mul-iter (lambda (x) x) 2 4 inc)
