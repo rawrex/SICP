@@ -9,22 +9,22 @@
 
 (define (cont-frac-iterative n d k)
   (define (iter counter product)
-    (if (= counter k)
+    (if (= counter 0)
       product
-      (iter (inc counter) (/ (n counter) (+ (d counter) product)))))
-  (iter 1 0))
+      (iter (dec counter) (/ (n counter) (+ (d counter) product)))))
+  (iter k (/ (n 0) (d 0))))
 
 (define (tan-cf x k approximator)
   (define (next-odd i)
     (+ (* i 2) 1))
   (let ((square-x (* x x)))
-    (/ x (- 1 (approximator square-x next-odd k)))))
-
-(define (tan-iterative x k)
-   (tan-cf x k cont-frac-iterative))
+    (/ x (- 1 (approximator (lambda (i) square-x) next-odd (- k 1))))))
 
 (define (tan-recursive x k)
    (tan-cf x k cont-frac-recursive))
 
-(tan-iterative 10 100)
-(tan-recursive 10 100)
+(define (tan-iterative x k)
+   (tan-cf x k cont-frac-iterative))
+
+(tan-recursive 1.0 100)
+(tan-iterative 1.0 100)

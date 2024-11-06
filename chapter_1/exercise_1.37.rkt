@@ -5,12 +5,12 @@
     (/ (n counter) (d counter))
     (/ (n counter) (+ (d counter) (cont-frac-recursive n d (dec counter))))))
 
-(define (cont-frac-iterative n d counter)
+(define (cont-frac-iterative n d k)
   (define (iter counter product)
     (if (= counter 0)
       product
       (iter (dec counter) (/ (n counter) (+ (d counter) product)))))
-  (iter (dec counter) (/ (n counter) (d counter))))
+  (iter k (/ (n 0) (d 0))))
 
 (define (one i) 1.0)
 

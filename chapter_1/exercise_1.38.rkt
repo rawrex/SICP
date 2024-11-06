@@ -9,11 +9,10 @@
 
 (define (cont-frac-iterative n d k)
   (define (iter counter product)
-    (if (= counter k)
+    (if (= counter 0)
       product
-      (iter (inc counter) (/ (n counter) (+ (d counter) product)))))
-  (iter 1 0))
-
+      (iter (dec counter) (/ (n counter) (+ (d counter) product)))))
+  (iter k (/ (n 0) (d 0))))
 (define (one i) 1.0)
 
 (define (approximate-e approximator k)
