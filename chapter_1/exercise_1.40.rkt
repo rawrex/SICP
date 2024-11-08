@@ -82,4 +82,23 @@
   (let ((dx 0.00001))
     (lambda (x) (/ (- (g (+ x dx)) (g x)) dx))))
 
+(define (newton-transform g)
+  (lambda (x) (- x (/ (g x) ((deriv g) x)))))
 
+(define (newtons-method g guess)
+  (fixed-point (newton-transform g) guess))
+
+;; Exercise 1.40
+
+(define (cubic a b c)
+    ; (lambda (x) 
+      ; ((let ((x-squared (* x x))) + (* x x-squared) (* a x-squared) (* b x) c))))
+    (lambda (x) (+ (* x x x) (* a x x) (* b x) c)))
+
+(define (solve-cubic a b c)
+  (newtons-method (cubic a b c) 1.0))
+
+;; Tests
+(solve-cubic -6 11 -6)
+(solve-cubic 3 -4 -12)
+(solve-cubic -7 14 -8)
