@@ -26,17 +26,12 @@
 (define (root-4 x)
   (fixed-point ((repeat average-damp 2) (lambda (y) (/ x (* y y y)))) 1.0))
 
-(define (nth-root x n)
-  (define (f y)
-    (/ x (expt y (- n 1))))
-  (fixed-point ((repeat average-damp 2) f) 1.0))
-
 (define (nth-root-test x n damp-counter)
   (define (f y)
     (/ x (expt y (- n 1))))
   (fixed-point ((repeat average-damp damp-counter) f) 1.0))
 
-;; Tests
+;; Experiments
 (define test-value-1 12) 
 (define test-value-2 123) 
 (define test-value-3 1234)
@@ -55,11 +50,26 @@
 
 ;; Note: the test-value-3 (1234) was too slow for the 63,
 ;; But overall it did converge
-(define damp-counter 4)
+;(define damp-counter 4)
+;(define test-exponent 63)
+
+;(nth-root-test (expt test-value-1 test-exponent) test-exponent damp-counter)
+;(nth-root-test (expt test-value-2 test-exponent) test-exponent damp-counter)
+;(nth-root-test (expt test-value-3 test-exponent) test-exponent damp-counter)
+
+
+;; Resulting procedure definition
+;;
+;; The assumption is that an appropriate damp counter can be deduced as: log_2(n) - 1
+;; Or to be correct, as floor of the log of n by the base 2
+(define (nth-root x n)
+  (define (f y)
+    (/ x (expt y (- n 1))))
+  (let ((deduced-damp-counter (floor (log n 2))))
+    (fixed-point ((repeat average-damp deduced-damp-counter) f) 1.0)))
+
+;; Final tests
 (define test-exponent 63)
-
-(nth-root-test (expt test-value-1 test-exponent) test-exponent damp-counter)
-(nth-root-test (expt test-value-2 test-exponent) test-exponent damp-counter)
-(nth-root-test (expt test-value-3 test-exponent) test-exponent damp-counter)
-
-;; 
+(nth-root (expt test-value-1 test-exponent) test-exponent)
+(nth-root (expt test-value-2 test-exponent) test-exponent)
+(nth-root (expt test-value-3 test-exponent) test-exponent)
