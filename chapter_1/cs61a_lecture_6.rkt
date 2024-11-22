@@ -4,7 +4,7 @@
   (define (insert number sorted-numbers)
     (cond ((null? sorted-numbers) (list number))
           ((< number (car sorted-numbers)) (cons number sorted-numbers))
-          ((cons (car sorted-numbers) (insert number (cdr sorted-numbers))))))
+          (else (cons (car sorted-numbers) (insert number (cdr sorted-numbers))))))
   (if (null? input-numbers)
       '()
       (insert (car input-numbers)
