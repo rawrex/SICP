@@ -27,10 +27,8 @@
 
 (define (segment-length segment)
   (sqrt (+
-         (+ (square (point-x (segment-start segment)))
-            (square (point-x (segment-end segment))))
-         (+ (square (point-y (segment-start segment)))
-            (square (point-y (segment-end segment)))))))
+         (square (- (point-x (segment-start segment)) (point-x (segment-end segment))))
+         (square (- (point-y (segment-start segment)) (point-y (segment-end segment)))))))
 
 
 ;; Rectangle
@@ -42,15 +40,15 @@
 
 ;; Constructor(s)
 (define (make-rect point-A point-C)
-  (cons (point-A point-C)))
+  (cons point-A point-C))
 
 ;; Selectors for vertices
 (define (rect-A rect)
   (car rect))
-(define (rect-B rect)
-  (make-point (point-x (rect-C rect)) (point-y (rect-A rect))))
 (define (rect-C rect)
   (cdr rect))
+(define (rect-B rect)
+  (make-point (point-x (rect-C rect)) (point-y (rect-A rect))))
 (define (rect-D rect)
   (make-point (point-x (rect-A rect)) (point-y (rect-C rect))))
 
@@ -66,12 +64,10 @@
 
 
 ;; Operations on the rectangles
-(define (rect-perimiter rect)
+(define (rect-perimeter rect)
   (+
-   (segment-length (rect-a rect))
-   (segment-length (rect-b rect))
-   (segment-length (rect-c rect))
-   (segment-length (rect-d rect))))
+   (* 2 (segment-length (rect-a rect)))
+   (* 2 (segment-length (rect-b rect)))))
 
 (define (rect-area rect)
   (*
@@ -90,3 +86,9 @@
 
 
 ;; Main
+(define s (make-segment (make-point 1 1) (make-point 4 1)))
+(segment-length s)
+
+(define r (make-rect (make-point 1 1) (make-point 4 3)))
+(rect-perimeter r)
+(rect-area r)
