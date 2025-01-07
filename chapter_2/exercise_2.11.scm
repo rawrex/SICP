@@ -60,9 +60,7 @@
        (make-interval (/ 1.0 (upper-bound y))
                       (/ 1.0 (lower-bound y))))))
 
-(define (width interval)
-  (/ (- (upper-bound interval) (lower-bound interval)) 2))
-
+;; Interval based constructor and selectors
 (define (lower-bound interval)
   (car interval))
 
@@ -71,3 +69,13 @@
 
 (define (make-interval a b)
   (cons a b))
+
+;; Center-width based constructor and selectors
+(define (make-center-width c w)
+  (make-interval (- c w) (+ c w)))
+
+(define (center i)
+  (/ (+ (lower-bound i) (upper-bound i)) 2))
+
+(define (width interval)
+  (/ (- (upper-bound interval) (lower-bound interval)) 2))
