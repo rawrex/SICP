@@ -54,15 +54,23 @@
 
 
 ;; Exercise 2.14
-(define (parallel-A resistor-a resistor-b)
+(define (parallel-1 resistor-a resistor-b)
   (div-interval (mul-interval resistor-a resistor-b) (add-interval resistor-a resistor-b)))
 
-(define (parallel-B resistor-a resistor-b)
-  (let ((unit (make-interval 1 1)))
+(define (parallel-2 resistor-a resistor-b)
+  (let ((unit (make-interval 1.0 1.0)))
     (div-interval unit (add-interval (div-interval unit resistor-a) (div-interval unit resistor-b)))))
 
 ;; Tests
-(define r1 (make-interval 1.0 1.1))
-(define r2 (make-interval 1.0 1.1))
-(parallel-A r1 r2)
-(parallel-B r1 r2)
+(define A (make-center-percent 0.5 5))
+(define B (make-center-percent 2.0 5))
+
+
+;; parallel-1 directly computes R_a*R_b,
+;; which amplifies the uncertainty through multiplication.
+;;
+;; parallel-2 computes reciprocals and their sum first,
+;; which indirectly reduces the range of the final interval
+;; due to the specific way uncertainties combine in reciprocal operations
+(parallel-1 A B)
+(parallel-2 A B)
