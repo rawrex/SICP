@@ -66,11 +66,12 @@
 (define B (make-center-percent 2.0 5))
 
 
-;; parallel-1 directly computes R_a*R_b,
-;; which amplifies the uncertainty through multiplication.
+;; Due to the dependency problem in interval arithmetic,
+;; when the same variable is used multiple times in an expression,
+;; each occurence is treated as an independent,
+;; while it is actually refers to the same quantity.
 ;;
-;; parallel-2 computes reciprocals and their sum first,
-;; which indirectly reduces the range of the final interval
-;; due to the specific way uncertainties combine in reciprocal operations
+;; Thus, the parallel-2 produces a tighter (correct) bound,
+;; while the parallel-1 introduces more uncertainty
 (parallel-1 A B)
 (parallel-2 A B)
