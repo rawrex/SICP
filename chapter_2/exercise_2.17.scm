@@ -5,5 +5,4 @@
         ((null? (cdr items)) items)
         (else (last-pair (cdr items)))))
 
-(last (list 1 2 3))
-      
+(last-pair (list 1 2 3))
