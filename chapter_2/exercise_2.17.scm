@@ -1,9 +1,9 @@
 #lang sicp
 
-(define (last items)
+(define (last-pair items)
   (cond ((null? items) '())
-        ((null? (cdr items)) (car items))
-        (else (last (cdr items)))))
+        ((null? (cdr items)) items)
+        (else (last-pair (cdr items)))))
 
 (last (list 1 2 3))
       
