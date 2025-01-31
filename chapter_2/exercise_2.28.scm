@@ -2,9 +2,12 @@
 
 (define (flat input-tree)
  (define (iter tree result)
-  (cond ((null? tree) result)
-        ((pair? (car tree)) (iter (cdr tree) (append result (flat (car tree)))))
-        (else (iter (cdr tree) (append result (list (car tree)))))))
+  (cond ((null? tree)
+            result)
+        ((pair? (car tree))
+            (iter (cdr tree) (append result (flat (car tree)))))
+        (else
+            (iter (cdr tree) (append result (list (car tree)))))))
  (iter input-tree '()))
 
 tree
